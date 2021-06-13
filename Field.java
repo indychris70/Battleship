@@ -65,6 +65,40 @@ public class Field {
 
             for (int i = Math.min(firstCoordinateRow, secondCoordinateRow); i <= Math.max(firstCoordinateRow, secondCoordinateRow); i++) {
                 for (int j = Math.min(firstCoordinateColumn, secondCoordinateColumn); j <= Math.max(firstCoordinateColumn, secondCoordinateColumn); j++) {
+                    if (field[i][j - 1].getStatusSymbol() == "O") {
+                        System.out.println("Error: May not overlap ships.");
+                        return false;
+                    }
+                }
+            }
+
+            for (int i = Math.min(firstCoordinateRow, secondCoordinateRow); i <= Math.max(firstCoordinateRow, secondCoordinateRow); i++) {
+                for (int j = Math.min(firstCoordinateColumn, secondCoordinateColumn); j <= Math.max(firstCoordinateColumn, secondCoordinateColumn); j++) {
+                    int indexOfRowAbove = i - 1;
+                    int indexOfRowBelow = i + 1;
+                    int indexOfColumnOnRight = j;
+                    int indexOfColumnOnLeft = j - 2;
+                    if (indexOfRowAbove >= 0 && field[indexOfRowAbove][j - 1].getStatusSymbol() == "O") {
+                        System.out.println("Error 1: May not place ship directly adjacent to another ship.");
+                        return false;
+                    }
+                    if (indexOfRowBelow <= 9 && field[indexOfRowBelow][j - 1].getStatusSymbol() == "O") {
+                        System.out.println("Error 2: May not place ship directly adjacent to another ship.");
+                        return false;
+                    }
+                    if (indexOfColumnOnRight <= 9 && field[i][j].getStatusSymbol() == "O") {
+                        System.out.println("Error 3: May not place ship directly adjacent to another ship.");
+                        return false;
+                    }
+                    if (indexOfColumnOnLeft >= 0 && field[i][j - 2].getStatusSymbol() == "O") {
+                        System.out.println("Error 4: May not place ship directly adjacent to another ship.");
+                        return false;
+                    }
+                }
+            }
+
+            for (int i = Math.min(firstCoordinateRow, secondCoordinateRow); i <= Math.max(firstCoordinateRow, secondCoordinateRow); i++) {
+                for (int j = Math.min(firstCoordinateColumn, secondCoordinateColumn); j <= Math.max(firstCoordinateColumn, secondCoordinateColumn); j++) {
                     field[i][j - 1].setStatus(Status.O);
                 }
             }
