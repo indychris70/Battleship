@@ -1,7 +1,7 @@
 package battleship;
 
 public class Coordinate {
-    private enum Status {
+    enum Status {
         F("~"), O("O"), X("X"), M("M");
         String symbol;
         Status(String symbol) {
@@ -24,6 +24,10 @@ public class Coordinate {
 
     String getStatusSymbol() {
         return status.symbol;
+    }
+
+    void setStatus(Status status) {
+        this.status = status;
     }
 
 }
