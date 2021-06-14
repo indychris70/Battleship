@@ -14,5 +14,6 @@ https://hyperskill.org/projects/125
 - Game - Initialized game objects, processes player actions during game.
 - Player - Player can have one Field
 - Field - Field can have many Coordinates
-  - Ship (Field private enum)
+  - Ship (Field enum)
 - Coordinate - represents one space in a Field
+  - Status (Coordinate enum)

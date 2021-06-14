@@ -24,4 +24,8 @@ public class Player {
             System.out.println();
         }
     }
+
+    void takeShot(Player opponent, String coordinate) {
+        opponent.getField().takeShot(coordinate);
+    }
 }
