@@ -10,9 +10,7 @@ public class Field {
         ERROR_WRONG_NUMBER_OF_COORDINATES("Error: Did not receive %s coordinates."),
         ERROR_DIAGONAL_PLACEMENT("Error: Ship must be placed horizontally (same row) or vertically (same column)."),
         ERROR_COORDINATES_DO_NOT_MATCH_SHIP_LENGTH("Error: You entered a range of %s coordinates, which does not match the ship length of %s"),
-        ERROR_SHOT_COORDINATE_INVALID("Error: You entered the wrong coordinates. Try again:"),
-        HIT("You hit a ship!"),
-        MISS("You missed!");
+        ERROR_SHOT_COORDINATE_INVALID("Error: You entered the wrong coordinates. Try again:");
 
         String text;
 
@@ -62,7 +60,7 @@ public class Field {
     private static final String[] rows = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
     private static final String[] columns = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     private final Coordinate[][] field = new Coordinate[rows.length][columns.length];
-    private final String header = "  " + String.join(" ", columns);
+    private static final String header = "  " + String.join(" ", columns);
     private final int NUMBER_OF_COORDINATES = 2;
 
     private Field() {
@@ -81,7 +79,7 @@ public class Field {
         return field;
     }
 
-    String getHeader() {
+    static String getHeader() {
         return header;
     }
 
@@ -91,6 +89,12 @@ public class Field {
 
     Ships[] getShips() {
         return Ships.values();
+    }
+
+    Coordinate getCoordinate(String coordinateString) {
+        int rowIndex = getRowIndex(coordinateString);
+        int columnIndex = getColumnIndex(coordinateString);
+        return field[rowIndex][columnIndex];
     }
 
     boolean placeShip(Ships ship, String coordinateString) {
@@ -119,10 +123,8 @@ public class Field {
         Coordinate coordinate = field[rowIndex][columnIndex];
         if (coordinate.getStatus() == Status.O || coordinate.getStatus() == Status.X) {
             coordinate.setStatus(Status.X);
-            Messages.HIT.print();
         } else {
             coordinate.setStatus(Status.M);
-            Messages.MISS.print();
         }
     }
 

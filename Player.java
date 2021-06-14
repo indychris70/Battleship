@@ -11,15 +11,20 @@ public class Player {
         return field;
     }
 
-    void printField() {
-        String[] rows = field.getRows();
-        System.out.println(field.getHeader());
-        // for (Coordinate[] row : field.getField()) {
-        for (int i = 0; i < field.getField().length; i++) {
+    void printField(boolean includeFogOfWar) {
+        String[] rows = getField().getRows();
+        System.out.println(Field.getHeader());
+
+        for (int i = 0; i < rows.length; i++) {
             System.out.print(rows[i]);
-            for (int j = 0; j < field.getField()[i].length; j++) {
-                String formattedSymbol = String.format(" %s", field.getField()[i][j].getStatusSymbol());
-                System.out.print(formattedSymbol);
+            for (int j = 0; j < getField().getField()[i].length; j++) {
+                String symbol;
+                if (includeFogOfWar) {
+                    symbol = getField().getField()[i][j].getPublicStatusSymbol();
+                } else {
+                    symbol = getField().getField()[i][j].getPrivateStatusSymbol();
+                }
+                System.out.print(String.format(" %s", symbol));
             }
             System.out.println();
         }

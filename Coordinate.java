@@ -2,16 +2,14 @@ package battleship;
 
 public class Coordinate {
     enum Status {
-        F("~"), O("O"), X("X"), M("M");
+        F("~", "~"), O("~", "O"), X("X", "X"), M("M", "M");
 
-        private String symbol;
+        private String privatesSymbol;
+        private String publicSymbol;
 
-        Status(String symbol) {
-            this.symbol = symbol;
-        }
-
-        public String getSymbol() {
-            return symbol;
+        Status(String privateSymbol, String publicSymbol) {
+            this.privatesSymbol = privateSymbol;
+            this.publicSymbol = publicSymbol;
         }
     }
     private int rowIndex;
@@ -28,8 +26,12 @@ public class Coordinate {
         return status;
     }
 
-    String getStatusSymbol() {
-        return status.symbol;
+    String getPrivateStatusSymbol() {
+        return status.privatesSymbol;
+    }
+
+    String getPublicStatusSymbol() {
+        return status.publicSymbol;
     }
 
     void setStatus(Status status) {
