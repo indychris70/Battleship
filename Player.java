@@ -1,13 +1,13 @@
 package battleship;
 
 public class Player {
-    Field field;
+    private final Field field;
 
     Player() {
-        this.field = new Field(this);
+        this.field = Field.newField();
     }
 
-    public Field getField() {
+    Field getField() {
         return field;
     }
 

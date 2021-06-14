@@ -3,7 +3,9 @@ package battleship;
 public class Coordinate {
     enum Status {
         F("~"), O("O"), X("X"), M("M");
-        String symbol;
+
+        private String symbol;
+
         Status(String symbol) {
             this.symbol = symbol;
         }
@@ -20,6 +22,10 @@ public class Coordinate {
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
         this.status = Status.F;
+    }
+
+    Status getStatus() {
+        return status;
     }
 
     String getStatusSymbol() {

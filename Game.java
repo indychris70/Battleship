@@ -14,8 +14,8 @@ public class Game {
             this.text = text;
         }
 
-        void print(String... strings) {
-            System.out.println(String.format(text, strings));
+        void print(String... subStrings) {
+            System.out.println(String.format(text, subStrings));
         }
     }
     Player[] players;
@@ -24,7 +24,7 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         // get number of players
         Messages.PROMPT_NUMBER_PLAYERS.print();
-        int numberOfPlayers = 1;
+        int numberOfPlayers = 1; // ready for multiple players
 
         // create players
         players = new Player[numberOfPlayers];
@@ -35,14 +35,12 @@ public class Game {
         // Place Ships in Field
         for (Player player : players) {
             player.printField();
+            String coordinates;
             for (Ships ship : player.getField().getShips()) {
-                Messages.PROMPT_PLACE_SHIP.print(ship.type, Integer.toString(ship.size));
-                String coordinates = scanner.nextLine();
-//                String coordinates = "F7 F3";
-                while (!player.getField().placeShip(ship, coordinates)) {
+                do {
                     Messages.PROMPT_PLACE_SHIP.print(ship.type, Integer.toString(ship.size));
                     coordinates = scanner.nextLine();
-                }
+                } while (!player.getField().placeShip(ship, coordinates));
                 player.printField();
             }
         }
