@@ -2,9 +2,19 @@ package battleship;
 
 public class Player {
     private final Field field;
+    private int shipsSunk;
 
     Player() {
         this.field = Field.newField();
+        shipsSunk = 0;
+    }
+
+    int getShipsSunk() {
+        return shipsSunk;
+    }
+
+    void setShipsSunk(int shipsSunk) {
+        this.shipsSunk = shipsSunk;
     }
 
     Field getField() {

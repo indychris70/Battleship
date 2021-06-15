@@ -10,8 +10,10 @@ public class Game {
         PROMPT_PLACE_SHIP("Enter the coordinates of the %s (%s cells):"),
         GAME_STARTS("The game starts!"),
         TAKE_SHOT("Take a shot!"),
-        HIT("You hit a ship!"),
-        MISS("You missed!");
+        HIT("You hit a ship! Try again:"),
+        MISS("You missed! Try again:"),
+        SHIP_SUNK("You sank a ship. Specify a new target:"),
+        WINNER("You sank the last ship. You won. Congratulations!");
 
         String text;
 
@@ -67,27 +69,41 @@ public class Game {
     private void startGame() {
         Scanner scanner = new Scanner(System.in);
         Messages.GAME_STARTS.print();
+
+        gameLoop:
         for (Player player : players) {
             player.printField(withFogOfWar);
-            Messages.TAKE_SHOT.print();
-            String coordinate;
             do {
-                coordinate = scanner.nextLine();
-            } while (!Field.shotCoordinateValid(coordinate));
-            player.takeShot(player, coordinate);
+                Messages.TAKE_SHOT.print();
+                String coordinate;
+                do {
+                    coordinate = scanner.nextLine();
+                } while (!Field.shotCoordinateValid(coordinate));
+                player.takeShot(player, coordinate);
 
-            player.printField(withFogOfWar);
+                player.printField(withFogOfWar);
 
-            if (player.getField().getCoordinate(coordinate).getStatus() == Status.X) {
-                Messages.HIT.print();
-            } else {
-                Messages.MISS.print();
-            }
+                if (player.getField().getCoordinate(coordinate).getStatus() == Status.X) {
+                    if (player.getField().getNumberOfShipsSunk() > player.getShipsSunk()) {
+                        player.setShipsSunk(player.getShipsSunk() + 1);
+                        if (player.getField().getNumberOfShipsSunk() == 5) {
+                            break gameLoop;
+                        } else {
+                            Messages.SHIP_SUNK.print();
+                        }
+                    } else {
+                        Messages.HIT.print();
+                    }
+                } else {
+                    Messages.MISS.print();
+                }
 
-            player.printField(withoutFogOfWar);
-//            for (Ships ship : player.getField().getShips()) {
-//                System.out.println(String.format("%s has %d hits", ship.type, ship.numberOfHits()));
-//            }
+                player.printField(withoutFogOfWar);
+                for (Ships ship : player.getField().getShips()) {
+                    System.out.println(String.format("%s has %d hits", ship.type, ship.numberOfHits()));
+                }
+            } while (player.getShipsSunk() < 5);
         }
+        Messages.WINNER.print();
     }
 }

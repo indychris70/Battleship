@@ -71,6 +71,16 @@ public class Field {
         }
     }
 
+    int getNumberOfShipsSunk() {
+        int shipsSunk = 0;
+        for (Ships ship : getShips()) {
+            if (ship.isSunk()) {
+                shipsSunk++;
+            }
+        }
+        return shipsSunk;
+    }
+
     static Field newField() {
         return new Field();
     }
