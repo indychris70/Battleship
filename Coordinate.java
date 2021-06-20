@@ -12,8 +12,8 @@ public class Coordinate {
             this.publicSymbol = publicSymbol;
         }
     }
-    private int rowIndex;
-    private int columnIndex;
+    private final int rowIndex;
+    private final int columnIndex;
     private Status status;
 
     Coordinate(int rowIndex, int columnIndex) {

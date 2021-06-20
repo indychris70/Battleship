@@ -3,25 +3,31 @@ package battleship;
 public class Player {
     private final Field field;
     private int shipsSunk;
+    private String number;
 
-    Player() {
+    Player(int number) {
         this.field = Field.newField();
         shipsSunk = 0;
+        this.number = Integer.toString(number);
     }
 
-    int getShipsSunk() {
+    public int getShipsSunk() {
         return shipsSunk;
     }
 
-    void setShipsSunk(int shipsSunk) {
+    public String getNumber() {
+        return number;
+    }
+
+    public void setShipsSunk(int shipsSunk) {
         this.shipsSunk = shipsSunk;
     }
 
-    Field getField() {
+    public Field getField() {
         return field;
     }
 
-    void printField(boolean includeFogOfWar) {
+    public void printField(boolean includeFogOfWar) {
         String[] rows = getField().getRows();
         System.out.println(Field.getHeader());
 
@@ -40,7 +46,7 @@ public class Player {
         }
     }
 
-    void takeShot(Player opponent, String coordinate) {
+    public void takeShot(Player opponent, String coordinate) {
         opponent.getField().takeShot(coordinate);
     }
 }

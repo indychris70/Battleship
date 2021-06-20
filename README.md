@@ -13,7 +13,8 @@ https://hyperskill.org/projects/125
 ### Classes
 - Game - Initialized game objects, processes player actions during game.
 - Player - Player can have one Field
-- Field - Field can have many Coordinates
-  - Ship (Field enum)
+- Field - Field can have many Coordinates and many Ships
+- Ship - represents one of a players pieces placed in the Field
+  - ShipTypes enum
 - Coordinate - represents one space in a Field
   - Status (Coordinate enum)
